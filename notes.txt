@@ -1,0 +1,85 @@
+Building a Restful Web Service JAVA
+1). Go to start.spring.io
+2).Dependencies:-  Web, devTools,JPA,h2(In Memory Database)
+3). Generate Project
+4). Import Project in Ecllipse
+5). Add this in POM inside properties <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+6). Create a Class called HelloWorldController and create a method that returns Hello world String
+7).In Order to create a service we need to use URI and the Method {GET/PUT/POST} in it 
+8).We need to also tell the class that its a Controller. We need to add @RestController before the class
+9).Creating a Mapping i.e.RequestMapping the Verb with the URI use @RequestMapping(mehod="RequestMethod.GET",path="/hello-world") 
+10). We can use @GetMapping(path="/hello-world") : we don't need to specify the RequestMethod
+11).We can use @PostMapping(path="/hello-world"),@PutMapping(path="/hello-world"),@DeleteMapping(path="/hello-world") etc.
+
+
+==========Calling a Bean=======
+12).Create a class called HelloWorldBean and also the Constructor
+
+HyperMedia As The Engine Of Application State (HATOAS)
+Also want to send the Link of the User, for the specific id HATOAS Concept 
+13). Add Dependency hateoas in POM 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+		
+14). Add the HATEOAS Link to the Method
+15). Internationalization [I18N] WEB Services 
+		Configure a LocaleResolver  Default = locale.US
+		Configure a ResourseBundleMessageSource
+		
+16). Adding XML Support We just have to add a Dependency
+		Add a Dependency in POM  jackson-dataformat-xml
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		
+17). SWAGGER (Documentation Restful Services)
+		Add Dependicies in  POM
+		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+18).Add Class SwaggerConfig
+19). Add Filtering
+20). Add Versioning
+21). Authentication
+			
+		 
+	 
+
+
+=============================================================================================
+=============================================================================================
+
+Restful Web Services
+
+Retrieve All User - GET  /users
+Create A User     - POST /users
+Retrieve one User - GET  /users/{id}
+Delete One User   - DELETE  /users/{id}
+
+-Retrieve All Post From A User - GET 	/users/{id}/posts
+Create a Posts for a User      - POST   /users/{id}/posts
+Retrieve Details of User       - GET 	/users/{id}/posts/{post_id}
+===================================================================================================
+===================================================================================================
+There are a few modifications of HATEOAS in the latest release of Spring HATEOAS:
+
+If you have compilation errors using ControllerLinkBuilder or Resource, Use the imports below:
+
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+EntityModel<User> model = new EntityModel<>(user.get());
+WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+model.add(linkTo.withRel("all-users"));
+
